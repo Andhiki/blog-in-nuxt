@@ -36,5 +36,8 @@
     "vue-router": "^4.6.3",
     "vue-sonner": "^2.0.9",
     "zod": "^4.1.12"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^12.4.1"
   }
 }

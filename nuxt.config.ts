@@ -44,4 +44,7 @@ export default defineNuxtConfig({
       "@": fileURLToPath(new URL("./", import.meta.url)),
     },
   },
+  content: {
+    experimental: { nativeSqlite: true },
+  },
 });
