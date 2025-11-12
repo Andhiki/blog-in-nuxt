@@ -19,6 +19,17 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxt/content", "@nuxt/eslint", "@nuxt/fonts", "shadcn-nuxt"],
+  fonts: {
+    families: [
+      {
+        name: "Bricolage Grotesque",
+        provider: "google",
+        weights: [200, 300, 400, 500, 600, 700, 800],
+        styles: ["normal"],
+        subsets: ["latin"],
+      },
+    ],
+  },
   shadcn: {
     /**
      * Prefix for all the imported component

@@ -1,6 +1,6 @@
 ---
 
-title: First Post
+title: First Posta
 description: This is my first post.
 date: 2023-01-01
 category: Blog
@@ -9,6 +9,6 @@ tags: [blog, first]
 
 ---
 
-# First Post
+# First Post TItle
 
-Izin
+Izinaaa

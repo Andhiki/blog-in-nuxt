@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ArrowLeft, Calendar } from "lucide-vue-next";
+
 const route = useRoute();
 const slug = computed(() => route.params.slug as string);
 
@@ -6,7 +8,7 @@ const { data: post, refresh } = await useAsyncData(
   () => `blog-${slug.value}`,
   async () => {
     const posts = await queryCollection("posts").all();
-    const found = posts.find((p: any) => p.slug === slug.value);
+    const found = posts.find((p: { slug: string }) => p.slug === slug.value);
     if (!found) {
       throw createError({
         status: 404,
@@ -14,55 +16,77 @@ const { data: post, refresh } = await useAsyncData(
       });
     }
     return found;
-  }
+  },
 );
 
 watch(
   () => route.params.slug,
   () => {
     refresh();
-  }
+  },
 );
 </script>
 
 <template>
-  <main class="flex items-center justify-center min-h-screen flex-col px-4">
-    <Container v-if="post" class="max-w-4xl mx-auto py-12">
-      <NuxtLink
-        to="/blog"
-        class="text-blue-600 hover:text-blue-800 mb-6 inline-block"
-      >
-        ← Back to Blog
-      </NuxtLink>
-      <article class="prose prose-lg max-w-none">
-        <header class="mb-8">
-          <h1 class="text-4xl font-bold mb-4">{{ post.title }}</h1>
-          <div class="flex items-center gap-4 text-gray-600 text-sm">
-            <time v-if="post.date">
-              {{
-                new Date(post.date).toLocaleDateString("id-ID", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              }}
-            </time>
-            <span v-if="post.tags" class="flex gap-2">
-              <span
-                v-for="tag in post.tags"
-                :key="tag"
-                class="bg-gray-100 px-3 py-1 rounded-full text-xs"
-              >
-                {{ tag }}
-              </span>
+  <Container v-if="post" class="max-w-3xl py-16">
+    <NuxtLink
+      to="/blog"
+      class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+    >
+      <ArrowLeft class="w-4 h-4" />
+      Back to blog
+    </NuxtLink>
+
+    <article>
+      <header class="mb-10">
+        <h1 class="text-4xl font-semibold mb-4 leading-tight">
+          {{ post.title }}
+        </h1>
+
+        <div
+          class="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6"
+        >
+          <time v-if="post.date" class="flex items-center gap-1.5">
+            <Calendar class="w-4 h-4" />
+            {{
+              new Date(post.date).toLocaleDateString("id-ID", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }}
+          </time>
+          <div
+            v-if="post.tags && post.tags.length > 0"
+            class="flex items-center gap-2 flex-wrap"
+          >
+            <span
+              v-for="tag in post.tags"
+              :key="tag"
+              class="text-xs px-2 py-0.5 rounded-md bg-muted"
+            >
+              {{ tag }}
             </span>
           </div>
-          <p v-if="post.description" class="text-xl text-gray-600 mt-4">
-            {{ post.description }}
-          </p>
-        </header>
-        <ContentRenderer :value="post" class="mt-8" />
-      </article>
-    </Container>
-  </main>
+        </div>
+
+        <p
+          v-if="post.description"
+          class="text-lg text-muted-foreground leading-relaxed"
+        >
+          {{ post.description }}
+        </p>
+      </header>
+
+      <div
+        class="prose prose-lg dark:prose-invert max-w-none prose-headings:font-semibold prose-p:leading-relaxed prose-p:text-foreground/90 prose-a:text-foreground prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-foreground/80 prose-strong:text-foreground prose-code:text-sm prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-muted prose-pre:border prose-pre:border-border"
+      >
+        <ContentRenderer :value="post" />
+      </div>
+    </article>
+  </Container>
+
+  <Container v-else class="py-20 items-center justify-center">
+    not found
+  </Container>
 </template>
