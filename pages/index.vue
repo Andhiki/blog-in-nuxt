@@ -1,5 +1,27 @@
 <script setup lang="ts">
 import { ArrowRight } from "lucide-vue-next";
+
+useHead({
+  title: "Personal Blog - Write, share, and learn together",
+  meta: [
+    {
+      name: "description",
+      content: "A place for thoughts, ideas, and discoveries. Explore articles on technology, design, and everything in between.",
+    },
+    {
+      property: "og:title",
+      content: "Personal Blog - Write, share, and learn together",
+    },
+    {
+      property: "og:description",
+      content: "A place for thoughts, ideas, and discoveries. Explore articles on technology, design, and everything in between.",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+  ],
+});
 </script>
 
 <template>

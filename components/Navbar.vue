@@ -40,7 +40,15 @@ const isActive = (path: string) => {
         >
           <NuxtLink to="/blog" class="flex items-center gap-2">
             Read Blog
-            <ArrowUpRightIcon class="w-4 h-4" />
+          </NuxtLink>
+        </Button>
+        <Button
+          as-child
+          variant="ghost"
+          :class="isActive('/contact') ? 'bg-accent' : ''"
+        >
+          <NuxtLink to="/contact" class="flex items-center gap-2">
+            Contact
           </NuxtLink>
         </Button>
       </nav>

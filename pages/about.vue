@@ -2,6 +2,24 @@
 definePageMeta({
   prerender: true,
 });
+
+useHead({
+  title: "About - Personal Blog",
+  meta: [
+    {
+      name: "description",
+      content: "Learn more about the author of this personal blog.",
+    },
+    {
+      property: "og:title",
+      content: "About - Personal Blog",
+    },
+    {
+      property: "og:description",
+      content: "Learn more about the author of this personal blog.",
+    },
+  ],
+});
 </script>
 
 <template>

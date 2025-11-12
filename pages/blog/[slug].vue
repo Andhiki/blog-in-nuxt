@@ -25,6 +25,45 @@ watch(
     refresh();
   },
 );
+
+useHead(() => {
+  if (!post.value) return {};
+
+  const title = `${post.value.title} - Personal Blog`;
+  const description = post.value.description || post.value.title;
+
+  return {
+    title,
+    meta: [
+      {
+        name: "description",
+        content: description,
+      },
+      {
+        property: "og:title",
+        content: title,
+      },
+      {
+        property: "og:description",
+        content: description,
+      },
+      {
+        property: "og:type",
+        content: "article",
+      },
+      {
+        property: "article:published_time",
+        content: post.value.date || "",
+      },
+      ...(post.value.tags
+        ? post.value.tags.map((tag: string) => ({
+            property: "article:tag",
+            content: tag,
+          }))
+        : []),
+    ],
+  };
+});
 </script>
 
 <template>
