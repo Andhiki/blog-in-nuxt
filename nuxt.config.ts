@@ -18,7 +18,13 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ["@nuxt/content", "@nuxt/eslint", "@nuxt/fonts", "shadcn-nuxt"],
+  modules: [
+    "@nuxt/content",
+    "@nuxt/eslint",
+    "@nuxt/fonts",
+    "shadcn-nuxt",
+    "nuxt-studio",
+  ],
   fonts: {
     families: [
       {
@@ -46,5 +52,24 @@ export default defineNuxtConfig({
   },
   content: {
     experimental: { nativeSqlite: true },
+  },
+  studio: {
+    route: "/_studio",
+
+    repository: {
+      provider: "github",
+      owner: "Andhiki",
+      repo: "blog-in-nuxt",
+      branch: "main",
+      rootDir: "",
+    },
+  },
+  nitro: {
+    prerender: {
+      // Pre-render the homepage
+      routes: ["/"],
+      // Then crawl all the links on the page
+      crawlLinks: true,
+    },
   },
 });
